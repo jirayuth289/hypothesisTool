@@ -1,0 +1,118 @@
+<div class="padding-user">
+    <div class="well well-lg">
+        <!-- Bootstrap Navigation Tabs -->
+        <ul class="nav nav-tabs">
+            <li role="presentation" ng-click="edit.namePhase();" ng-class="nameTab"><a href="#">ชื่อผู้ใช้</a></li>
+            <li role="presentation" ng-click="edit.usernamePhase();" ng-class="usernameTab"><a href="#">รหัสผู้ใช้</a></li>
+            <li role="presentation" ng-click="edit.emailPhase();" ng-class="emailTab"><a href="#">อีเมล</a></li>
+            <li role="presentation" ng-click="edit.permissionsPhase();" ng-class="permissionsTab"><a href="#">สิทธิ์เข้าใช้งาน</a></li>
+        </ul>
+        <!-- Bootstrap Navigation Tabs -->
+
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-6 col-sm-8">
+                <!-- Phase One: Name -->
+                <form name="edit.nameForm" ng-show="edit.phase1" ng-submit="edit.updateName(newName, edit.nameForm.name.$valid)" novalidate>
+                    <!-- Name Div -->
+                    <div ng-class="{ 'has-success':(edit.nameForm.name.$valid && !edit.nameForm.name.$pristine), 'has-error':(!edit.nameForm.name.$valid && !edit.nameForm.name.$pristine) || (!nameForm.name.$valid && nameForm.$submitted) }">
+                        <!-- Name Input -->
+                        <label>ชื่อผู้ใช้งาน:</label>
+                        <input ng-disabled="edit.disabled" class="form-control" type="text" name="name" placeholder="please enter name" ng-pattern="/^(([\u0E00-\u0E7Fa-zA-Z]{3,20})+[ ]+([\u0E00-\u0E7Fa-zA-Z]{3,20})+)+$/" ng-model="newName" ng-minlength="3" ng-maxlength="40"
+                            required>
+                        <!-- Name Validation -->
+                        <p class="help-block" ng-show="(!edit.nameForm.name.$pristine && nameForm.name.$error.required) || (edit.nameForm.$submitted && edit.nameForm.name.$error.required)">กรูณากรอกข้อมูล</p>
+                        <ul ng-show="(!edit.nameForm.name.$pristine && edit.nameForm.name.$error.pattern) || (!edit.nameForm.name.$pristine && edit.nameForm.name.$error.minlength) || (!edit.nameForm.name.$pristine && edit.nameForm.name.$error.maxlength)" class="help-block">
+                            <li>ต้องมีเว้นวรรคระหว่างชื่อกับนามสกุล</li>
+                            <li>ต้องไม่มีอักษระพิเศษ</li>
+                            <li>ต้องไม่ตัวเลข</li>
+                            <li>ต้องมีจำนวนอักษร 3-40 ตัว</li>
+                        </ul>
+                    </div>
+                    <!-- Name Input -->
+                    <br>
+                    <!-- Submit Button -->
+                    <button ng-disabled="edit.disabled" class="btn btn-primary" type="submit">บันทึก</button>
+                </form>
+                <!-- Phase One: Name -->
+
+                <!-- Phase Two: Username -->
+                <form name="edit.usernameForm" ng-show="edit.phase2" ng-submit="edit.updateUsername(newUsername, edit.usernameForm.username.$valid)" novalidate>
+                    <!-- Username Div -->
+                    <div ng-class="{ 'has-success':(edit.usernameForm.username.$valid && !edit.usernameForm.username.$pristine), 'has-error':(!edit.usernameForm.username.$valid && !edit.usernameForm.username.$pristine) || (!edit.usernameForm.username.$valid && edit.usernameForm.$submitted)}">
+                        <!-- Username Input -->
+                        <label>รหัสผู้ใช้งาน:</label>
+                        <input ng-disabled="register.disabled" class="form-control" type="text" name="username" placeholder="please enter username" ng-model="newUsername" ng-minlength="3" ng-maxlength="25" ng-pattern="/^(?!.*?[\W])(?=.*?[a-zA-Z]|=.*?[A-Z]).{3,16}$/" required>
+                        <!-- Username Validation -->
+                        <p class="help-block" ng-show="(!edit.usernameForm.username.$pristine && edit.usernameForm.username.$error.required) || (edit.usernameForm.$submitted && edit.usernameForm.username.$error.required)">กรุณากรอกข้อมูล</p>
+                        <span ng-show="register.checkingUsername && edit.usernameForm.username.$valid" class="glyphicon glyphicon-repeat"></span>
+                        <p class="help-block" ng-show="register.usernameMsg && !edit.usernameForm.username.$error.required && edit.usernameForm.username.$valid">{{ register.usernameMsg }}</p>
+                        <ul ng-show="(!edit.usernameForm.username.$pristine && edit.usernameForm.username.$error.pattern) || (!edit.usernameForm.username.$pristine && edit.usernameForm.username.$error.minlength) || (!edit.usernameForm.username.$pristine && edit.usernameForm.username.$error.maxlength)"
+                            class="help-block">
+                            <li>ต้องไม่มีอักษระพิเศษและเว้นวรรค</li>
+                            <li>ต้องมีจำนวนอักษร 3-25 ตัว</li>
+                        </ul>
+                    </div>
+                    <!-- Username Div -->
+                    <br>
+                    <!-- Submit Button -->
+                    <button ng-disabled="edit.disabled" class="btn btn-primary" type="submit">บันทึก</button>
+                </form>
+                <!-- Phase Two: Username -->
+
+                <!-- Phase Three: E-mail -->
+                <form name="edit.emailForm" ng-show="edit.phase3" ng-submit="edit.updateEmail(newEmail, edit.emailForm.email.$valid)" novalidate>
+                    <!-- Email Div -->
+                    <div ng-class="{ 'has-success':(edit.emailForm.email.$valid && !edit.emailForm.email.$pristine), 'has-error':(!edit.emailForm.email.$valid && !edit.emailForm.email.$pristine) || (!edit.emailForm.email.$valid && edit.emailForm.$submitted) }">
+                        <!-- Email Input -->
+                        <label>อีเมลผู้ใช้งาน:</label>
+                        <input ng-disabled="edit.disabled" class="form-control" type="text" name="email" placeholder="please enter email" ng-model="newEmail" ng-minlength="3" ng-maxlength="25" ng-pattern="/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/" required>
+                        <!-- Email Validation -->
+                        <p class="help-block" ng-show="(!edit.emailForm.email.$pristine && edit.emailForm.email.$error.required) || (edit.emailForm.$submitted && edit.emailForm.email.$error.required)">กรุณากรอกข้อมูล</p>
+                        <span ng-show="edit.checkingEmail && edit.emailForm.email.$valid" class="glyphicon glyphicon-repeat"></span>
+                        <p class="help-block" ng-show="edit.emailMsg && !edit.emailForm.email.$error.required && edit.emailForm.email.$valid">{{ edit.emailMsg }}</p>
+                        <ul ng-show="(!edit.emailForm.email.$pristine && edit.emailForm.email.$error.pattern) || (!edit.emailForm.email.$pristine && edit.emailForm.email.$error.minlength) || (!edit.emailForm.email.$pristine && edit.emailForm.email.$error.maxlength)" class="help-block">
+                            <li>ต้องมี "@"</li>
+                            <li>ต้องไม่มีอักษระพิเศษ</li>
+                            <li>ต้องมีจำนวนอักษร 3-25 ตัว</li>
+                        </ul>
+                    </div>
+                    <!-- Email Div -->
+                    <br>
+                    <!-- Submit Button -->
+                    <button ng-disabled="edit.disabled" class="btn btn-primary" type="submit">บันทึก</button>
+                </form>
+                <!-- Phase Three: E-mail -->
+
+                <!-- Phase Four: Permission -->
+                <div ng-show="edit.phase4">
+                    <label>สิทธิ์การเข้าใช้งาน:&nbsp&nbsp </label>{{ newPermission }}
+                    <br>
+                    <br>
+                    <!-- User Permission Button -->
+                    <button ng-disabled="edit.disableUser" ng-click="edit.updatePermissions('user');" type="button" class="btn btn-success">สมาชิก</button>&nbsp
+                    <!-- Admin Permission Button -->
+                    <button ng-disabled="edit.disableAdmin" ng-click="edit.updatePermissions('admin');" type="button" class="btn btn-warning">ผู้ดูแลระบบ</button>
+                </div>
+                <!-- Phase Four: Permission -->
+            </div>
+        </div>
+        <br>
+
+        <!-- Custom Success Message -->
+        <div class="row show-hide-message" ng-show="edit.successMsg">
+            <div class="alert alert-success">{{ edit.successMsg }}</div>
+        </div>
+        <!-- Custom Success Message -->
+
+        <br>
+
+        <!-- Custom Error Message -->
+        <div class="row show-hide-message" ng-show="edit.errorMsg">
+            <div class="alert alert-danger">{{ edit.errorMsg }}</div>
+        </div>
+        <!-- Custom Error Message -->
+    </div>
+
+</div>

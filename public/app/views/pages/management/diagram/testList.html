@@ -1,0 +1,48 @@
+<div class="padding-user">
+    <div class="row">
+        <div class="col-md-12">
+            <i class="inside fa fa-search fa-2x"></i>
+            <input type="text" id="myInput" ng-model="keySearch" class="inp" placeholder="ค้นหา..">
+        </div>
+    </div>
+    <br>
+    <div class="panel panel-default">
+        <!--<button type="button" ng-click="lsDiag.getDiagName()">get</button>-->
+        <div class="panel-heading clearfix">
+            <div class="pull-left">
+                รายการแบบทดสอบทั้งหมด
+            </div>
+
+            <div class="pull-right">เรียงตาม
+                <a class="text-sort" ng-click="lsDiag.orderByMe('name')" href="#"><i class="fa fa-sort" aria-hidden="true"></i> ชื่อ</a> <a class="text-sort" href="#" ng-click="lsDiag.orderByMe('updated')"><i class="fa fa-sort" aria-hidden="true"></i> วันที่</a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-3" ng-repeat="diag in lsDiag.dataDiagramListAll | filter:keySearch | orderBy:myOrderBy |limitTo: lsDiag.limit">
+                    <div class="containerbox">
+                        <div class="box">
+                            <h4>{{diag.name}}</h4> วันที่: {{diag.updated | date:"dd/MM/yyyy"}}</div>
+                        <div class="middle">
+                            <div class="txt">
+                                <a href="/test/{{diag._id}}">ทดสอบ</a>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="col-md-3" ng-show="lsDiag.showListAll">
+                        <div class="containerbox">
+                            <div class="box"></div>
+                            <div class="middleNoData">
+                                <div class="text text-center">ยังไม่มีแผนผัง</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <button type="button" ng-click="lsDiag.limit = lsDiag.limit+8" ng-hide="lsDiag.limit>=lsDiag.dataDiagramListAll.length" class="btn btn-default">แสดงเพิ่มเติม</button>
+            </div>
+        </div>
+    </div>
+</div>

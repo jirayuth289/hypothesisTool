@@ -1,0 +1,109 @@
+<div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2">
+    <div ng-if="!main.username">
+        <div class="page-header text-center">
+            <h1>สมัครสมาชิก</h1>
+        </div>
+        <!-- Successful Registration Message -->
+        <div class="row show-hide-message" ng-show="register.successMsg">
+            <div class="alert alert-success">{{ register.successMsg }}</div>
+        </div>
+        <!-- Successful Registration Message -->
+
+        <!-- Failed Registration Message -->
+        <div class="row show-hide-message" ng-show="register.errorMsg">
+            <div class="alert alert-danger">{{ register.errorMsg }}</div>
+        </div>
+        <!-- Failed Registration Message -->
+        <!-- Registration Form -->
+        <form name="regForm" ng-submit="register.regUser(regData, regForm.$valid,confirmed);" class="well well-lg" novalidate>
+            <div ng-class="{'has-success':(regForm.name.$valid && !regForm.name.$pristine), 'has-error':(!regForm.name.$valid && !regForm.name.$pristine || !regForm.name.$valid && regForm.$submitted)}">
+                <!-- Name -->
+                <label>ชื่อผู้ใช้งาน:</label>
+                <input class="form-control" type="text" name="name" placeholder="please enter name" ng-pattern="/^(([\u0E00-\u0E7Fa-zA-Z]{3,20})+[ ]+([\u0E00-\u0E7Fa-zA-Z]{3,20})+)+$/" ng-model="register.regData.name" ng-minlength="3" ng-maxlength="40" required>
+                <p class="help-block" ng-show="!regForm.name.$pristine && regForm.name.$error.required || (regForm.$submitted && regForm.name.$error.required)">กรุณากรอกข้อมูล</p>
+
+                <ul ng-show="(!regForm.name.$pristine && regForm.name.$error.pattern) || (!regForm.name.$pristine && regForm.name.$error.minlength) || (!regForm.name.$pristine && regForm.name.$error.maxlength)" class="help-block">
+                    <li>ต้องมีเว้นวรรคระหว่างชื่อกับนามสกุล</li>
+                    <li>ต้องไม่มีอักษระพิเศษ</li>
+                    <li>ต้องไม่ตัวเลข</li>
+                    <li>ต้องมีจำนวนอักษร 3-40 ตัว</li>
+                </ul>
+            </div>
+            <br>
+            <div ng-class="{'has-success':(regForm.email.$valid && !regForm.email.$pristine && !register.emailInvalid), 'has-error':(!regForm.email.$valid && !regForm.email.$pristine || !regForm.email.$valid && regForm.$submitted || register.emailInvalid)}">
+                <!-- Email -->
+                <label>อีเมลผู้ใช้งาน:</label>
+                <input ng-disabled="register.disabled" class="form-control" type="text" name="email" placeholder="please enter email" ng-pattern="/^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/" ng-model="register.regData.email" ng-minlength="3" ng-maxlength="25" ng-blur="register.checkEmail(regData)"
+                    required>
+
+                <span ng-show="register.checkingEmail" class="glyphicon glyphicon-repeat"></span>
+                <p class="help-block" ng-show="register.emailMsg && !regForm.email.$error.required  && regForm.username.$valid">{{register.emailMsg}}</p>
+
+                <p class="help-block" ng-show="!regForm.email.$pristine && regForm.email.$error.required || (regForm.$submitted && regForm.email.$error.required)">กรุณากรอกข้อมูล</p>
+
+
+                <ul ng-show="(!regForm.email.$pristine && regForm.email.$error.pattern) || (!regForm.email.$pristine && regForm.email.$error.minlength) || (!regForm.email.$pristine && regForm.email.$error.maxlength)" class="help-block">
+                    <li>ต้องมี "@"</li>
+                    <li>ต้องไม่มีอักษระพิเศษ</li>
+                    <li>ต้องมีจำนวนอักษร 3-25 ตัว</li>
+                </ul>
+            </div>
+            <br>
+            <div ng-class="{'has-success':(regForm.username.$valid && !regForm.username.$pristine && !register.usernameInvalid), 'has-error':(!regForm.username.$valid && !regForm.username.$pristine || !regForm.username.$valid && regForm.$submitted || register.usernameInvalid)}">
+                <!-- Username -->
+                <label>รหัสผู้ใช้งาน:</label>
+                <input ng-disabled="register.disabled" class="form-control" type="text" name="username" placeholder="please enter username" ng-model="register.regData.username" ng-minlength="3" ng-maxlength="25" ng-pattern="/^[a-zA-Z0-9]{3,25}$/" ng-blur="register.checkUsername(regData)"
+                    required>
+
+                <span ng-show="register.checkingUsername" class="glyphicon glyphicon-repeat"></span>
+                <p class="help-block" ng-show="register.usernameMsg && !regForm.username.$error.required && regForm.username.$valid">{{register.usernameMsg}}</p>
+
+                <p class="help-block" ng-show="!regForm.username.$pristine && regForm.username.$error.required || (regForm.$submitted && regForm.username.$error.required)">กรุณากรอกข้อมูล</p>
+
+
+                <ul ng-show="(!regForm.username.$pristine && regForm.username.$error.pattern) || (!regForm.username.$pristine && regForm.username.$error.minlength) || (!regForm.username.$pristine && regForm.username.$error.maxlength)" class="help-block">
+                    <li>ต้องไม่มีอักษระพิเศษและเว้นวรรค</li>
+                    <li>ต้องมีจำนวนอักษร 3-25 ตัว</li>
+                </ul>
+            </div>
+            <br>
+            <div ng-class="{'has-success':(regForm.firstPassword.$valid && !regForm.firstPassword.$pristine), 'has-error':(!regForm.firstPassword.$valid && !regForm.firstPassword.$pristine || !regForm.firstPassword.$valid && regForm.$submitted)}">
+                <!-- Password -->
+                <label>รหัสผ่าน:</label>
+                <input ng-disabled="register.disabled" class="form-control" type="password" name="firstPassword" placeholder="please enter password" ng-model="firstPassword" ng-minlength="8" ng-maxlength="35" ng-pattern="/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d]).{8,35}$/"
+                    required>
+
+                <p class="help-block" ng-show="!regForm.firstPassword.$pristine && regForm.firstPassword.$error.required || (regForm.$submitted && regForm.firstPassword.$error.required)">กรุณากรอกข้อมูล</p>
+
+
+                <ul ng-show="(!regForm.firstPassword.$pristine && regForm.firstPassword.$error.pattern) || (!regForm.firstPassword.$pristine && regForm.firstPassword.$error.minlength) || (!regForm.firstPassword.$pristine && regForm.firstPassword.$error.maxlength)" class="help-block">
+                    <li>ต้องมีตัวพิมพ์ใหญ๋อย่างน้อย 1 ตัว</li>
+                    <li>ต้องมีตัวพิมพ์เล็กอย่างน้อย 1 ตัว</li>
+                    <li>ต้องมีตัวเลขอย่างน้อย 1 ตัว</li>
+                    <!--<li>Must contain at least one special character</li>-->
+                    <li>ต้องมีจำนวนอักษร 3-25 ตัว</li>
+                </ul>
+            </div>
+            <div ng-class="{ 'has-success':confirmed && !regForm.confirmPassword.$error.required, 'has-error':(!confirmed && !regForm.confirmPassword.$error.required) || (regForm.confirmPassword.$error.required && !regForm.confirmPassword.$pristine) || (regForm.$submitted && regForm.confirmPassword.$error.required) }">
+                <!-- Confirm Password -->
+                <label>ยืนยันรหัสผ่าน:</label>
+                <input ng-disabled="register.disabled" class="form-control" type="password" name="confirmPassword" placeholder="please enter password" ng-model="confirm" match="{{[firstPassword]}}" ng-change="register.regData.password = confirm" required>
+
+                <p class="help-block" ng-show="!regForm.confirmPassword.$pristine && regForm.confirmPassword.$error.required || (regForm.$submitted && regForm.confirmPassword.$error.required)">กรุณากรอกข้อมูล</p>
+                <p class="help-block" ng-show="!confirmed && !regForm.confirmPassword.$pristine && regForm.firstPassword.$valid">รหัสผ่านไม่ตรงกัน</p>
+            </div>
+            <br>
+            <!-- Submit/Register Button -->
+            <button class="btn btn-success btn-block" type="submit">สมัครสมาชิก</button>
+        </form>
+        <!-- Registration Form -->
+
+        <!-- Loading Icon -->
+        <div class="jumbotron text-center" ng-show="register.loading">
+            <span class="glyphicon glyphicon-repeat spinner"></span>
+            <p>Loading....</p>
+        </div>
+        <!-- Loading Icon -->
+    </div>
+
+</div>

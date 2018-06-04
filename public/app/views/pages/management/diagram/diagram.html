@@ -1,0 +1,227 @@
+<div class="padding-user">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="text" id="name" ng-model="diag.name" name="name" placeholder="ชื่อโจทย์ปัญหาโครงงาน">
+            </div>
+        </div>
+    </div>
+
+    <!--Successful save diagram Message-->
+    <div class="row show-hide-message padding-msg" ng-show="diag.successMsg">
+        <div class="alert alert-success col-md-6"><i class="material-icons">done</i>{{ diag.successMsg }}</div>
+    </div>
+
+    <!--fail save diagram Message-->
+    <div class="row show-hide-message padding-msg" ng-show="diag.errorMsg">
+        <div class="alert alert-danger col-md-6"><i class="material-icons">error</i> {{ diag.errorMsg }}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2" ng-class="{fullscreen2:diag.isFullScreen}">
+            <div class="panel panel-default">
+                <div class="panel-heading ">
+                    <h2 class="panel-title text-center">เพิ่มตัวแปรต้น/ตาม</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row text-center">
+                        <div id="input">
+                            <input type="text" id="indepAnddepVar1" ng-keyup="diag.addIndepAnddepVar($event, $index)">
+                        </div>
+                        <br>
+                        <button type="button" ng-click="diag.addNode('indepAnddepVar')" class="btn btn-success">เพิ่ม</button>
+
+                    </div>
+                </div>
+            </div>
+              <div class="panel panel-default">
+                <div class="panel-heading ">
+                    <h2 class="panel-title text-center">เพิ่มตัวแปรควบคุม</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row text-center">
+                        <div id="input2">
+                            <input type="text" id="controlVar1" ng-keyup="diag.addControlVar($event, $index)">
+                        </div>
+                        <br>
+                        <button type="button" ng-click="diag.addNode('controlVar')" class="btn btn-success">เพิ่ม</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10" ng-class="{fullscreen:diag.isFullScreen}">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <span ng-include="'app/views/pages/management/diagram/textEditor/editor.html'"></span>
+                    <div class="pull-right">
+                        <button type="button" id="export_button" class="btn btn-success btn-sm" ng-click="diag.chkCtrlVarBeforeSave()"><i class="fa fa-floppy-o" aria-hidden="true"></i> บันทึก</button>
+
+                        <button type="button" class="btn btn-sm btn-default" ng-click="diag.isFullScreen = !diag.isFullScreen" data-toggle="tooltip" data-placement="top" title="เต็มจอ">
+                            <span style="font-size:12px;padding-top:3px" ng-hide="diag.isFullScreen" class="glyphicon glyphicon-fullscreen"></span>
+                            <i ng-show="diag.isFullScreen" class="fa fa-window-restore" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="network" ondrop="angular.element(document.getElementById('dragDrop')).scope().drop(event)" ondragover="angular.element(document.getElementById('dragDrop')).scope().allowDrop(event)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button ng-click="diag.defineDirectToIndependVar()" type="button" class="btn btn-lg btn-danger"><i class="fa fa-search" aria-hidden="true"></i> สร้างสมมติฐาน</button>
+        </div>
+    </div>
+
+    <div id="paddingToHyp"></div>
+    <div class="row" style=" margin-top: 10px;">
+        <div class="col-md-offset-2 col-md-8" ng-repeat="d in diag.dataHyp">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h2 class="panel-title">สมมติฐาน {{$index + 1}}</h2>
+                </div>
+                <div class="panel-body">
+
+                    <span ng-repeat="t in d.mydata track by $index">
+                     <span ng-show="$first || $last">   
+                       {{t.label}} <strong ng-if="t.direct == 'up'">มาก</strong><strong ng-if="t.direct == 'down'">น้อย</strong>
+                    </span>
+                    </span>
+                    <div class="pull-right">
+                        <button ng-click="diag.viewHypByGroup(d)" type="button" class="btn btn-sm btn-default"><img  src="../../../../images/graph.png"></button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right" ng-show="$last">
+                <button type="button" class="btn btn-default" ng-click="scrollToTop()"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!--PopUp Diagram-->
+    <div id="edge-popUp">
+        <h4 ng-bind="diag.lblEdge"></h4>
+        <form name="dataNode" class="form-horizontal" novalidate>
+            <div class="form-group form-group-sm ">
+                <label class="control-label col-sm-5">เลือกเส้นเชื่อม</label>
+                <div class="col-sm-7">
+                    <select class="form-control" name="edges" id="edges">
+                <option value="line">เส้นทึบ</option>
+                <option value="dashes">เส้นประ</option>
+            </select>
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm" style="margin-top: -5px">
+                <div class="text-center">
+                    <button type="button" id="edge-cancelButton" class="btn btn-sm btn-default"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    <button type="button" id="edge-saveButton" class="btn btn-sm btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="error-msg">
+        <strong><span id="lbl-msg" style="color:red"></span></strong> <br>
+
+        <input type="button" value="ตกลก" class="btn btn-default btn-sm" id="ok-errorButton" />
+        <input type="button" value="ยกเลิก" class="btn btn-danger btn-sm" ng-click="diag.closePopupErr()" id="close-errorButton" />
+    </div>
+
+    <div id="addNode">
+        <h4 ng-bind="diag.lbl_operation"></h4>
+        <div class="form-horizontal">
+            <div class="form-group form-group-sm">
+                <label class="control-label col-sm-3">ชื่อ</label>
+                <div class="col-sm-9">
+                    <input name="nameNode" class="form-control" id="label">
+                </div>
+                <span ng-show="diag.msgErr.label" class="help-block text-red">กรุณากรอกข้อมูล</span>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="control-label col-sm-3">ชนิดตัวแปร</label>
+                <div class="col-sm-9 text-left">
+                    <label><input type="radio" name="variable" id="InDeVar" value="InDeVar"> ต้น/ตาม</label><br/>
+                    <label><input type="radio" name="variable" id="CtrlVar" value="CtrlVar"> ควบคุม</label>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="text-center">
+                    <button type="button" id="cancelNode" class="btn btn-sm btn-default"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    <button type="button" id="saveNode" class="btn btn-sm btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal_addVarCtrl" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">บันทึกแผนผัง</h4>
+                </div>
+                <div class="modal-body">
+                    <p>คุณต้องการกำหนดตัวแปรควบคุมหรือไม่</p>
+                </div>
+                <div class="modal-footer">
+
+                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-default">ตกลง</button>
+
+                    <button ng-click="diag.exportDiagram()" type="button" class="btn btn-sm btn-success">บันทึก</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal select direct hypothesis-->
+    <div class="modal" id="modal_hypSearch" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">กำหนดทิศทางตัวแปรต้น</h4>
+                </div>
+                <div class="modal-body">
+                    <div ng-repeat="in in diag.IndependVarList" class="form-group">
+                        <label for=""> {{in.label}}</label>
+                        <select ng-model="in.direct" class="form-control" style="font-family: 'FontAwesome', sans-serif;">
+                    <option value="" selected>--เลือก--</option>
+                    <option value="up">&#xf062 </option>
+                     <option value="down">&#xf063 </option>
+                </select>
+                    </div>
+                    <p class="bg-primary">**ผู้ใช้สามารถกำหนดทิศทางตัวแปรต้นเฉพาะตัวที่คุณต้องการ เพื่อสร้างสมมติฐานที่คุณต้องการทราบได้ </p>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-default">ยกเลิก</button>
+                    <button ng-click="diag.hypSearch()" type="button" class="btn btn-sm btn-success">สร้างสมมติฐาน</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal view hypothesis by group-->
+    <div class="modal" id="modal_viewHyp" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">สมมติฐานที่ {{diag.hypGroup}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="viewHypByGroup">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-default">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

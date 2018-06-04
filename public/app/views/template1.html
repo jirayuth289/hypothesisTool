@@ -1,0 +1,30 @@
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" style="padding: 10px 16% 10px 10%">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <!--<a class="navbar-brand" href="/home"><i class="fa fa-home fa-lg text-white" aria-hidden="true"></i></a>-->
+            <a class="navbar-brand" href="/"><img width="50px" src="../../../../images/avatar/logo.png" alt="">
+            </a>
+            <span class="navbar-brand" href="/"><span class="text-muted h5 text-white">สร้างสมมติฐานโครงงานวิจัยด้วยเครื่องมือสนับสนุนการคิดเชิงระบบ</span> </span>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-if="!main.isLoggedIn">
+                    <button class="btn btn-default  navbar-btn" ng-click="main.go('/login')">เข้าสู่ระบบ</button>&nbsp
+                </li>
+                <li ng-if="!main.isLoggedIn">
+                    <button class="btn btn-success  navbar-btn" ng-click="main.go('/register')">สมัครสมาชิก</button>
+                </li>
+            </ul>
+
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>

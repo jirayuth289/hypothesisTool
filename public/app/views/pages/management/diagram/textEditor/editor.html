@@ -1,0 +1,54 @@
+<!--add and reduce font size of node-->
+<div class="btn-group">
+    <button type="button" class="btn btn-sm btn-default" ng-click="diag.sizeFont('add')"><i class="fa fa-font" style="font-size: 12px" aria-hidden="true"></i></button>
+    <button type="button" class="btn btn-sm btn-default" ng-click="diag.sizeFont('sub')"><i class="fa fa-font" style="font-size: 10px" aria-hidden="true"></i></button>
+</div>
+<!--font size node-->
+<div class="btn-group">
+    <button type="button" class="btn btn-sm btn-default disabled"><i class="fa fa-font" style="font-size: 10px" aria-hidden="true"></i></button>
+    <select style="padding:6px 1px" class="btn btn-sm btn-default" ng-model="diag.font_size.selectedOption" ng-options="option for option in diag.font_size.options" ng-change="diag.sizeFont('')">  
+    </select>
+</div>
+<!--font color-->
+<button type="button" class="btn btn-sm btn-default" onclick="document.getElementById('font_color').click()"><i id="btn_font_color" style="font-size: 16px;" class="material-icons">format_color_text</i></button>
+<input type="color" id="font_color" ng-model="color" style="display:none" class="form-control input-sm" ng-change="diag.colorFont_node(color)" value="" />
+
+<!--background color of node-->
+<button type="button" class="btn btn-sm btn-default" onclick="document.getElementById('bg_node').click()"><i id="btn_bg_color" style="font-size: 16px;" class="material-icons">format_color_fill</i></button>
+<input type="color" id="bg_node" ng-model="bg_color" style="display:none" class="form-control input-sm" ng-change="diag.bg_node(bg_color)" value="" />
+
+<!--border color of node-->
+<button type="button" class="btn btn-sm btn-default" onclick="document.getElementById('border_node').click()"><i id="btn_font_color" style="font-size: 16px;" class="material-icons">border_outer</i></button>
+<input type="color" id="border_node" ng-model="border_color" style="display:none" class="form-control input-sm" ng-change="diag.border_node(border_color)" value="" />
+
+<!--border width node-->
+<div class="btn-group">
+    <button type="button" class="btn btn-sm btn-default disabled"><i id="btn_font_color" style="font-size: 16px;" class="material-icons">border_outer</i></button>
+    <select class="btn  btn-default" style="padding:5.5px 1px" ng-model="diag.border_widths.selectedOption" ng-options="option for option in diag.border_widths.options" ng-change="diag.border_width()">  
+    </select>
+</div>
+
+<!--color of edge-->
+<div class="btn-group">
+    <button type="button" class="btn btn-sm btn-default"><i id="btn_font_color" style="font-size: 16px;" class="material-icons">keyboard_tab</i></button>
+    <input type="color" ng-model="diag.edge_color" ng-change="diag.edges_color(diag.edge_color)" class=" input-sm btn btn-sm">
+</div>
+
+<!--The width of the edge-->
+<div class="btn-group">
+    <button type="button" class="btn btn-sm btn-default disabled"><i id="btn_font_color" style="font-size: 16px;" class="material-icons">call_made</i></button>
+    <select class="btn  btn-default" style="padding:5.5px 1px" ng-model="diag.width_edge.selectedOption" ng-options="option for option in diag.width_edge.options" ng-change="diag.width_edges()">  
+    </select>
+</div>
+
+<!--<div class="btn-group">
+    <button ng-click="stateUndo()" type="button" class="btn btn-sm btn-default" title="Undo (Ctrl+Z)"><i class="fa fa-rotate-left" aria-hidden="true"></i></button>
+    <button ng-click="stateRedo()" type="button" class="btn btn-sm btn-default" title="Redo (Ctrl+Y)"><i class="fa fa-rotate-right"  aria-hidden="true"></i></button>
+</div>-->
+
+<div class="btn-group">
+    <button ng-click="stateNodeCopy()" type="button" class="btn btn-sm btn-default"><i class="fa fa-copy"  aria-hidden="true"></i></button>
+    <button ng-click="stateNodeCut()" type="button" class="btn btn-sm btn-default"><i class="fa fa-scissors" aria-hidden="true"></i></button>
+    <button ng-click="stateNodePaste()" type="button" class="btn btn-sm btn-default"><i class="fa fa-paste" aria-hidden="true"></i></button>
+    <button type="button" id="destroy_button" ng-click="diag.clearNetwork()" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="รีเช็ต"><i class="fa fa-retweet" aria-hidden="true"></i> </button>
+</div>

@@ -1,0 +1,33 @@
+{
+  "name": "meantutorial",
+  "version": "1.0.0",
+  "description": "stack application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "MEAN",
+    "stack"
+  ],
+  "author": "js",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.16.0",
+    "dotenv": "^5.0.1",
+    "express": "^4.14.1",
+    "express-session": "^1.15.0",
+    "jsonwebtoken": "^7.2.1",
+    "mongoose": "4.8.1",
+    "mongoose-title-case": "0.0.4",
+    "mongoose-validator": "^1.2.5",
+    "morgan": "^1.7.0",
+    "nodemailer": "^4.1.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "sendgrid": "^5.2.0"
+  }
+}

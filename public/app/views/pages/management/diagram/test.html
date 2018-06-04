@@ -1,0 +1,54 @@
+<div class="padding-user">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">ชื่อผังเหตุผล: {{test.diagramName}}</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="network" ondrop="angular.element(document.getElementById('dragDrop')).scope().drop(event)" ondragover="angular.element(document.getElementById('dragDrop')).scope().allowDrop(event)">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">ตัวแปร</h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-repeat="node in test.nodeDataList">
+                        <div style="padding-bottom:3px" id="dragDrop">
+                            <div id={{node.id}} draggable="true" ondragstart="angular.element(this).scope().drag(event)">
+                                <h4><span class="label label-success ">{{node.label}}</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--popUpAlert after drop-->
+<div id="popUpCheckCorrect" style="display:none">
+    <div ng-bind-html="test.msg"></div>
+</div>
+
+<!-- success-->
+<div class="modal" id="modal_success" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">คุณฝึกสร้างผังเหตุผลโจทย์ปัญหาโครงงาน: {{test.diagramName}} สำเร็จ</h4>
+            </div>
+            <div class="modal-body text-center">
+                <button ng-click="test.toPageList('/testList')" type="button" class="btn btn-default">กลับสู่หน้าหลัก</button>
+                <button ng-click="test.toNextTest()" type="button" class="btn btn-success">ฝึกแบบทดสอบต่อไป</button>
+				<div ng-bind="test.msgTest" class="bg-success"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

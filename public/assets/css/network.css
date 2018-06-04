@@ -1,0 +1,143 @@
+  /*network test page*/
+  
+  #network {
+      background-color: white;
+  }
+  /*add node*/
+  
+  #network-popUp {
+      display: none;
+      position: absolute;
+      top: 250px;
+      left: 61%;
+      z-index: 1031;
+      width: 250px;
+      /*height: 230px;*/
+      background-color: #f9f9f9;
+      border-style: solid;
+      border-width: 3px;
+      border-color: #5394ed;
+      padding: 10px;
+      text-align: center;
+  }
+  /*add edges*/
+  
+  .fullscreen {
+      position: fixed;
+      width: 85%;
+      height: 780px;
+      left: 15%;
+      top: 3px;
+      background: #EFF1F3;
+      z-index: 1030;
+      overflow-x: hidden;
+      /* Disable horizontal scroll */
+      transition: 0.5s;
+      /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+  }
+  
+  .fullscreen2 {
+      position: fixed;
+      width: 15%;
+      height: 780px;
+      left: 0;
+      top: 3px;
+      background: #EFF1F3;
+      z-index: 1030;
+      overflow-x: hidden;
+      /* Disable horizontal scroll */
+      transition: 0.5s;
+      /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+  }
+  
+  #independAnddependVar {
+      border-radius: 50%;
+      /*background: #73AD21;*/
+      border: 2px solid #ccc;
+      padding: 20px;
+      width: 100%;
+      height: 60px;
+  }
+  
+  #ctrlVar {
+      width: 100%;
+      height: 100px;
+      border: 2px solid #ccc;
+      padding: 20px;
+      height: 60px;
+	   border-radius: 6%;
+  }
+  
+  #hyp {
+      width: 100%;
+      height: 200px;
+      background-color: white;
+      z-index: 2;
+  }
+  
+  #viewHyp {
+      width: 100%;
+      height: 200px;
+      background-color: white;
+      z-index: 2;
+  }
+  
+  #edge-popUp {
+      display: none;
+      position: absolute;
+      top: 250px;
+      left: 61%;
+      z-index: 1031;
+      width: 250px;
+      /*height: 110px;*/
+      background-color: #f9f9f9;
+      border-style: solid;
+      border-width: 3px;
+      border-color: #5394ed;
+      padding: 10px;
+      text-align: center;
+  }
+  
+  #addNode {
+      display: none;
+      position: absolute;
+      top: 250px;
+      left: 61%;
+      z-index: 1031;
+      width: 250px;
+      background-color: #f9f9f9;
+      border-style: solid;
+      border-width: 3px;
+      border-color: #5394ed;
+      padding: 10px;
+      text-align: center;
+  }
+  
+  #error-msg {
+      display: none;
+      position: absolute;
+      top: 250px;
+      left: 61%;
+      z-index: 1031;
+      width: 250px;
+      /*height: 120px;*/
+      background-color: #f9f9f9;
+      border-style: solid;
+      border-width: 3px;
+      border-color: #5394ed;
+      padding: 10px;
+      text-align: center;
+  }
+  
+  #popUpCheckCorrect {
+      display: none;
+      position: absolute;
+      z-index: 1031;
+      width: 100px;
+      background-color: #f9f9f9;
+      border-style: solid;
+      border-width: 3px;
+      border-color: #5394ed;
+      padding: 10px;
+      text-align: center;
+  }

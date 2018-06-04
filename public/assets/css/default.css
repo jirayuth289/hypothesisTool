@@ -1,0 +1,202 @@
+body {
+    background-color: #EFF1F3;
+}
+
+hr {
+    background-color: #EFF1F3;
+    height: 2px;
+}
+
+.text-white {
+    color: #EFF1F3;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-red {
+    color: red;
+}
+
+.text-black {
+    color: black;
+}
+
+.padding-user {
+    padding: 20px;
+}
+
+.cursor-pointer {
+    cursor: default;
+}
+
+.stick-top-mgnt {
+    margin-bottom: 30px
+}
+
+
+/*padding success and error msg */
+
+.padding-msg {
+    margin-left: 0.1%;
+}
+
+.text-sort {
+    color: #326771;
+    text-decoration: none
+}
+
+
+/*custom nav tap*/
+
+nav.well {
+    background-color: white
+}
+
+.nav>.default {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid gray black;
+}
+
+.nav-tabs>li {
+    border-bottom: 1px solid #ddd
+}
+
+.nav>li>a:hover {
+    color: black;
+}
+
+.nav>li>a {
+    color: black;
+}
+
+
+/*navbar*/
+
+.navbar-brand>.logo {
+    display: block;
+    margin-top: -5px;
+}
+
+.navbar-brand>img {
+    display: block;
+    margin-top: -10px;
+}
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+        color: white;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu>li {
+        color: white;
+    }
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+
+.navbar {
+    background-color: #326771;
+    border-top: 3px solid #EEC643;
+    border-bottom: 0px;
+    box-shadow: 1px 1px 5px grey;
+}
+
+.material-icons {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+.modal {
+    margin-top: 5%;
+}
+
+
+/*sidenave left*/
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 11;
+    top: 50px;
+    left: 0;
+    background-color: #e7e7e7;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /*border-right: 1px solid #773344;*/
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: gray;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav a:hover,
+.offcanvas a:focus {
+    color: #773344;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+
+/*manipulation vis.js*/
+
+body,
+select {
+    font: 10pt sans;
+}
+
+table.legend_table {
+    font-size: 11px;
+    border-width: 1px;
+    border-color: #d3d3d3;
+    border-style: solid;
+}
+
+table.legend_table,
+td {
+    border-width: 1px;
+    border-color: #d3d3d3;
+    border-style: solid;
+    padding: 2px;
+}
+
+div.table_content {
+    width: 80px;
+    text-align: center;
+}
+
+div.table_description {
+    width: 100px;
+}
+
+#operation {
+    font-size: 28px;
+}

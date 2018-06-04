@@ -1,0 +1,79 @@
+<div class="padding-user">
+    <div class="row">
+        <div class="col-md-12">
+            <i class="inside fa fa-search fa-2x"></i>
+            <input type="text" id="myInput" ng-model="keySearch" class="inp" placeholder="ค้นหาชื่อโจทย์ปัญหาโครงงาน..">
+        </div>
+    </div>
+    <br>
+    <!--Successful save diagram Message-->
+    <div class="row show-hide-message padding-msg" ng-show="lsDiag.successMsg">
+        <div class="alert alert-success col-md-6"><i class="material-icons">done</i>{{ lsDiag.successMsg }}</div>
+    </div>
+
+    <!--fail save diagram Message-->
+    <div class="row show-hide-message padding-msg" ng-show="lsDiag.errorMsg">
+        <div class="alert alert-danger col-md-6"><i class="material-icons">error</i> {{ lsDiag.errorMsg }}</div>
+    </div>
+    <div class="panel panel-default" style="margin-top: 10px">
+        <!--<button type="button" ng-click="lsDiag.getDiagName()">get</button>-->
+        <div class="panel-heading clearfix">
+            <div class="pull-left">
+                รายการแผนผัง
+            </div>
+
+            <div class="pull-right">เรียงตาม
+                <a class="text-sort" ng-click="lsDiag.orderByMe('name')" href="#"><i class="fa fa-sort" aria-hidden="true"></i> ชื่อ</a> <a class="text-sort" href="#" ng-click="lsDiag.orderByMe('updated')"><i class="fa fa-sort" aria-hidden="true"></i> วันที่</a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-3" ng-repeat="diag in lsDiag.dataDiagramList | filter:keySearch | orderBy:myOrderBy |limitTo: lsDiag.limit" style="margin-bottom: 20px">
+                    <div class="containerbox">
+                        <div class="box">
+                            <h4>{{diag.name}}</h4> วันที่: {{diag.updated | date:"dd/MM/yyyy"}}
+                        </div>
+                        <div class="middle">
+                            <div class="txt">
+                                <a href="/diagManage/{{diag._id}}"><i class="material-icons">create</i></a>
+                                <a href="#" data-toggle="modal" ng-click="lsDiag.id = diag._id" data-target="#modal_delete"><i class="material-icons">delete_forever</i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" ng-show="lsDiag.showList">
+                    <div class="containerbox">
+                        <div class="box"></div>
+                        <div class="middleNoData">
+                            <div class="text text-center">ยังไม่มีแผนผัง</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center">
+
+                <button type="button" ng-click="lsDiag.limit = lsDiag.limit+8" ng-show="!lsDiag.showList" ng-hide="lsDiag.limit>=lsDiag.dataDiagramList.length" class="btn btn-default">แสดงเพิ่มเติม</button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal_delete" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">ลบแผนผัง</h4>
+                </div>
+                <div class="modal-body">
+                    <p>คุณแน่ใจหรือไม่ที่จะลบข้อมูลนี้</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">ยกเลิก</button>
+                    <button ng-click="lsDiag.delete(lsDiag.id)" type="button" class="btn btn-sm btn-danger">ตกลง</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
