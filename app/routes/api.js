@@ -19,16 +19,17 @@ module.exports = function(router) {
   //user register route
   router.post("/users", function(req, res) {
     var user = new User(req.body);
-    user.temporarytoken = jwt.sign(
-      {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        name: user.name
-      },
-      secret,
-      { expiresIn: "24h" }
-    );
+    user.active = true;
+    // user.temporarytoken = jwt.sign(
+    //   {
+    //     id: user._id,
+    //     username: user.username,
+    //     email: user.email,
+    //     name: user.name
+    //   },
+    //   secret,
+    //   { expiresIn: "24h" }
+    // );
     // If statement to ensure request it not empty or null
     if (
       req.body.username == null ||
@@ -85,36 +86,11 @@ module.exports = function(router) {
             }
           }
         } else {
-          // Function to send e-mail to the user
-          var toEmail = new helper.Email(user.email);
-          var subject = "ลิงก์ยืนยันการสมัครสมาชิกของคุณ";
-          var txt =
-            "สวัสดีคุณ<strong> " +
-            user.name +
-            '</strong>,<br><br>ขอบคุณสำหรับการสมัครสมาชิกที่ localhost.com. กรุณากดลิงค์ส่งมาเพื่อยืนยันการสมัครสมาชิกของคุณ:<br><br><a href="http://localhost/activate/' +
-            user.temporarytoken +
-            '">http://localhost/activate/</a>';
-          var content = new helper.Content("text/html", txt);
-          var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-
-          var request = sg.emptyRequest({
-            method: "POST",
-            path: "/v3/mail/send",
-            body: mail.toJSON()
-          });
-
-          sg.API(request, function(error, response) {
-            if (error) {
-              console.log("Error response received");
-            } else {
-              console.log("yes");
-              res.json({
-                success: true,
-                message:
-                  "สมัครสมาชิกเรียบร้อยแล้ว กรุณาตรวจสอบอีเมลของคุณเพื่อยืนยันการสมัครสมรชิก"
-              }); // If all criteria met, save user
-            }
-          });
+          res.json({
+            success: true,
+            message:
+              "สมัครสมาชิกเรียบร้อยแล้ว กรุณาตรวจสอบอีเมลของคุณเพื่อยืนยันการสมัครสมรชิก"
+          }); // If all criteria met, save user
         }
       });
     }
